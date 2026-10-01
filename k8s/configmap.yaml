@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: platform-api-config
+  namespace: platform
+
+data:
+  APP_NAME: "K8s Production Platform API"
+  APP_ENV: "development"
