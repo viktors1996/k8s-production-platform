@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: platform-api-config
+  labels:
+    app: platform-api
+
+data:
+  APP_NAME: {{ .Values.api.config.appName | quote }}
+  APP_ENV: {{ .Values.api.config.appEnv | quote }}
