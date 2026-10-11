@@ -6,6 +6,9 @@ metadata:
     app: postgres
 
 spec:
+{{- if .Values.postgres.persistence.storageClassName }}
+  storageClassName: {{ .Values.postgres.persistence.storageClassName | quote }}
+{{- end }}
   accessModes:
     - ReadWriteOnce
 
