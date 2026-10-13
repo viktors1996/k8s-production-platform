@@ -37,4 +37,7 @@ jobs:
         run: ruff check .
 
       - name: Run tests
+        env:
+          DATABASE_URL: postgresql+asyncpg://test:test@localhost:5432/testdb
+          REDIS_URL: redis://localhost:6379/0
         run: python -m pytest -v
