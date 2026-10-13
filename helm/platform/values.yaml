@@ -27,11 +27,15 @@ api:
       path: /health/ready
       initialDelaySeconds: 5
       periodSeconds: 5
+      timeoutSeconds: 2
+
 
     liveness:
       path: /health/live
       initialDelaySeconds: 10
       periodSeconds: 10
+      timeoutSeconds: 2
+
 
 postgres:
   image:

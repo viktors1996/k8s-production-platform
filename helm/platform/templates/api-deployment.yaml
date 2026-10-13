@@ -38,6 +38,7 @@ spec:
               port: {{ .Values.api.service.port }}
             initialDelaySeconds: {{ .Values.api.probes.readiness.initialDelaySeconds }}
             periodSeconds: {{ .Values.api.probes.readiness.periodSeconds }}
+            timeoutSeconds: {{ .Values.api.probes.readiness.timeoutSeconds }}
 
           livenessProbe:
             httpGet:
@@ -45,6 +46,7 @@ spec:
               port: {{ .Values.api.service.port }}
             initialDelaySeconds: {{ .Values.api.probes.liveness.initialDelaySeconds }}
             periodSeconds: {{ .Values.api.probes.liveness.periodSeconds }}
+            timeoutSeconds: {{ .Values.api.probes.liveness.timeoutSeconds }}
 
           resources:
 {{ toYaml .Values.api.resources | indent 12 }}
