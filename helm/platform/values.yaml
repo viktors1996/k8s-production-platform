@@ -2,8 +2,8 @@ api:
   replicaCount: 2
 
   image:
-    repository: k8s-production-platform-api
-    tag: latest
+    repository: ghcr.io/viktors1996/k8s-production-platform/api
+    tag: "fc2e51c"
     pullPolicy: IfNotPresent
 
   config:
