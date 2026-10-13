@@ -5,6 +5,9 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+permissions:
+  contents: read
+  packages: write
 
 jobs:
   lint-and-test:
@@ -68,7 +71,23 @@ jobs:
         with:
           image-ref: k8s-platform-api:test
           format: table
-          exit-code: '0'
+          exit-code: '1'
           ignore-unfixed: true
           vuln-type: os,library
           severity: CRITICAL,HIGH
+      - name: Login to GitHub Container Registry
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Docker image to GHCR
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          IMAGE=ghcr.io/${GITHUB_REPOSITORY,,}/api
+          docker tag k8s-platform-api:test "$IMAGE:latest"
+          docker tag k8s-platform-api:test "$IMAGE:${GITHUB_SHA::7}"
+          docker push "$IMAGE:latest"
+          docker push "$IMAGE:${GITHUB_SHA::7}"
